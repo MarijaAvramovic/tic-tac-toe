@@ -32,6 +32,9 @@ html, body {
   flex-wrap: wrap; 
   width: 300px; 
   border: 1px solid black;
+  font-size: 4.4rem;
+  color: rgb(56, 56, 54) ;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
 
 .item {
@@ -40,6 +43,6 @@ html, body {
   display: flex;
   justify-content: center;
   align-items: center;
-  border: 1px solid gray;
+  border: 1px solid rgb(128, 128, 128);
   margin: 1px;
 }
