@@ -1,0 +1,45 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%; 
+    overflow: hidden; 
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);   
+    height: 100%;  
+    width: 100%; 
+}
+
+.grid-item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #ccc;  
+    box-sizing: border-box; 
+}
+
+
+.names { background-color: lightblue; }
+.board { background-color: lightcoral; }
+.winner { background-color: lightgreen; }
+.control { background-color: lightgoldenrodyellow; }
+
+.container {
+  display: flex;
+  flex-wrap: wrap; 
+  width: 300px; 
+  border: 1px solid black;
+}
+
+.item {
+  flex: 1 0 calc(33.33% - 10px);
+  height: 100px; 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid gray;
+  margin: 1px;
+}
