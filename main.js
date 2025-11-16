@@ -122,22 +122,7 @@ btnReset.addEventListener("click", function() {
 
  
 
-    cells.forEach(cell => {
-      cell.addEventListener('click', event => {
-        if(event.target.textContent === ''){    
-
-            checkCells(boardArray);
-            event.target.textContent = player;
-            changePlayer();
-              const  cellId = event.target.dataset.index; 
-              boardArray[cellId] = event.target.textContent;
-
-            console.log(boardArray);
-
-        }
-         
-      });
-    });
+    
 
 
  let table = {
@@ -153,12 +138,13 @@ btnReset.addEventListener("click", function() {
 
  }
 
- console.log(table);
+//  console.log(table);
 function reset(){
     boardArray = [
     '', '', '',
      '', '', '', 
      '', '', ''];
+
      cells.forEach(cell => {
         cell.textContent = '';
      });
@@ -172,19 +158,40 @@ let winningDraws = [
 
 ];
  
-
-let winningDraw = winningDraws.filter(function(draw) {
-    const firstElement = draw[0];
-  return  draw.every(element => element === firstElement);
-});
-console.log(winningDraws);
-console.log(winningDraw);
-
+reset();
+checkCells();
 
 function checkCells(){
         
         
-    
+    let winningDraw = winningDraws.filter(function(draw) {
+    const firstElement = draw[0];
+  return  draw.every(element => element === firstElement);
+});
+
+
+console.log(winningDraws);
+console.log(winningDraw);
+
     
     } ;
+
  
+
+    
+    cells.forEach(cell => {
+      cell.addEventListener('click', event => {
+        if(event.target.textContent === ''){    
+
+           checkCells();
+            event.target.textContent = player;
+            changePlayer();
+              const  cellId = event.target.dataset.index; 
+              boardArray[cellId] = event.target.textContent;
+
+            console.log(boardArray);
+
+        }
+         
+      });
+    });
