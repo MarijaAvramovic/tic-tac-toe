@@ -24,7 +24,9 @@ html, body {
 
 .names { background-color: lightblue; }
 .board { background-color: lightcoral; }
-.winner { background-color: lightgreen; }
+.winner { background-color: lightgreen; 
+
+}
 .control { background-color: lightgoldenrodyellow; }
 
 .container {

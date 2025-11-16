@@ -94,9 +94,18 @@
 
  // html
 
+
+
  let cells = document.querySelectorAll('.item');
+ 
  let boardArray = [];
 
+ const btnReset = document.querySelector('.reset');
+console.log(btnReset);
+
+btnReset.addEventListener("click", function() {
+    reset();
+  });
 cells.forEach(div => {
   boardArray.push(div.textContent); 
 });
@@ -114,5 +123,5 @@ function reset(){
     // cells.textContent = "";
 }
 
-reset();
+ 
 console.log(boardArray);
