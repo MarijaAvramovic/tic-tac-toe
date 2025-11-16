@@ -167,17 +167,19 @@ function reset(){
 
  
 let winningDraws = [
-    [boardArray[0], boardArray[3], boardArray[6]],
-    [boardArray[1], boardArray[4], boardArray[7]],
-    [boardArray[2], boardArray[5], boardArray[8]],
-    [boardArray[0], boardArray[4], boardArray[6]],
-    [boardArray[0], boardArray[1], boardArray[2]],
-    [boardArray[3], boardArray[4], boardArray[5]],
-    [boardArray[6], boardArray[7], boardArray[8]],
-    [boardArray[0], boardArray[4], boardArray[8]],
-    [boardArray[2], boardArray[4], boardArray[6]]
+    [table.zero, table.first, table.second],
+    [table.zero, table.third, table.sixth]
+
 ];
  
+
+let winningDraw = winningDraws.filter(function(draw) {
+    const firstElement = draw[0];
+  return  draw.every(element => element === firstElement);
+});
+console.log(winningDraws);
+console.log(winningDraw);
+
 
 function checkCells(){
         
@@ -185,18 +187,4 @@ function checkCells(){
     
     
     } ;
-
  
-console.log(winningDraws);
-
-const winnerDraw = winningDraws.filter(function(element) {
-    //arr[0]; 3 elementa
-    const firstElement = element[0];
-    return element.every(element => element === firstElement);
-});
-
-console.log(winnerDraw);
-
-//  const [winner] = winnerDraw;
- let winner = winnerDraw[0][0];
- console.log(winner);
