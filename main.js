@@ -2,35 +2,41 @@ const btnStart = document.querySelector("#start");
 const divWinner = document.querySelector(".winner");
 const btnRestart = document.querySelector('.reset');
 const cells = document.querySelectorAll('.item');
+ const msgTurn = document.createElement('h4');
 
- const inputX = document.querySelector('#x');
+ const inputX = document.querySelector('#X');
 
-    const inputO = document.querySelector('#o');
+    const inputO = document.querySelector('#O');
 
     let player = 'X';
-      
+     
 
+btnRestart.addEventListener('click', restartGame);
 
-
+btnStart.addEventListener('click', addPlayers);
+btnStart.addEventListener('click', addMsg);
+ 
 
  
 cells.forEach(e => {
     e.addEventListener('click',  () => {
          selectMove(event)
-    });
-    e.addEventListener('click',  () => {
-           
-    });
+    }); });
 
-})
+ 
+
+// function() {
+//     const player1 = createPlayer(inputX);
+//      const player2 = createPlayer(inputO);
+//      if (player == player1.sign ) {
+//         player1.addMsg();
+//      }else if(player == player2.sign){
+//                 player2.addMsg();}
+//     console.log(player1.addMsg);
+
+//   })
 
 
-
-
-
-btnRestart.addEventListener('click', restartGame);
-
-btnStart.addEventListener('click', addPlayers)
 
 
 //------------------------------TEST--------------------------
@@ -61,19 +67,20 @@ const winner = my.winnerSign;
 //------------------------------------------------------------
  
 
- function changePlayer() {
-        player = (player == 'X') ? "O" : "X";
-    }
+ 
 
 
 function selectMove(event) {
+    console.log(player);
       
      
     const clickedCell = event.target;
    
-  
+   
     clickedCell.textContent =  player;
     changePlayer();
+    addMsg();
+   
 
 
 
@@ -92,10 +99,14 @@ function selectMove(event) {
      console.log(test.winnerSign);
      let a = test.winnerArr;
 
-    if (Array.isArray(a) ) {
- announceWinner(test.winnerSign);
-          
+
+    if(a[0][0] != ""){
+announceWinner(test.winnerSign);    
+
     }
+
+        
+    
     
     let cellValue = clickedCell.textContent;
     const cellId = clickedCell.getAttribute('data-index');
@@ -118,11 +129,17 @@ function selectMove(event) {
      
 }
 
+function stopGame() {
+     cells.forEach(e => {
+         
+        e.classList.add('disabled-div');
+    });
+}
   function restartGame() {
 
     
-
-    divWinner.textContent = 'Enter names';
+    gameOn = false;
+    divWinner.textContent = 'Enter names and start the game';
 
      inputX.value = '';
      inputO.value = '';
@@ -157,6 +174,8 @@ function announceWinner(sing) {
 
     divWinner.appendChild(msgWinner);
 
+    stopGame();
+
 }
 
 function announceNames(nameX, nameO) {
@@ -166,6 +185,7 @@ function announceNames(nameX, nameO) {
     msgWinner.textContent = 'X is ' + nameX + " and O is " + nameO;
 
     divWinner.appendChild(msgWinner);
+    divWinner.appendChild(msgTurn);
 
 }
 
@@ -231,7 +251,53 @@ function gameboard() {
         console.log("enter names");
         
     }
+  
+return { nameO, nameX}
+  
 
 }
 
+function announceTurn(sign){
+    let currentPlayer = sign;
+
+    if(currentPlayer == 'X'){
+
+    divWinner.textContent = '';
+    const msgWinner = document.createElement('h4');
+
+    msgWinner.textContent = 'Now is ' + addPlayers().nameX + ' turn';
+
+    divWinner.appendChild(msgWinner);
+    }else if (currentPlayer == 'O'){
+        divWinner.textContent = '';
+    const msgWinner = document.createElement('h4');
+
+    msgWinner.textContent = 'Now is ' + addPlayers().nameO + ' turn';
+
+    divWinner.appendChild(msgWinner);
+    }
+}
+
+function createPlayer(name) {
+    return {
+        name: name.value,
+        sign: name.id,
+    }
+}
+// let yu = createPlayer(inputX);
+
+//  console.log(yu.addMsg());
+
+ function addMsg () {
+             
+            
+            msgTurn.textContent = '';
+             msgTurn.textContent = 'Now is ' + player + ' turn';
+ 
+            }
+ 
+
+ function changePlayer() {
   
+        player = (player == 'X') ? "O" : "X";
+ }
