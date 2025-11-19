@@ -8,6 +8,10 @@ cells.forEach(e => {
     e.addEventListener('click',  () => {
          selectMove(event)
     });
+    e.addEventListener('click',  () => {
+           
+    });
+
 })
 
 
@@ -46,9 +50,13 @@ const winner = my.winnerSing;
 //------------------------------------------------------------
 
 function selectMove(event) {
+      
+     let cellsPerRound = gameboard().moves; 
+     checkWinner(cellsPerRound);
 
+     
     const clickedCell = event.target;
-
+    clickedCell.textContent = 'X';
     let cellValue = clickedCell.textContent;
 
     const cellId = clickedCell.getAttribute('data-index');
@@ -59,7 +67,13 @@ function selectMove(event) {
      
      clickedCell.classList.add('disabled-div');
         
-        
+   
+     
+    cellsPerRound[cellId] = cellValue;
+
+    console.log(cellsPerRound);
+
+    return ( cellsPerRound)
      
 }
 
@@ -75,7 +89,7 @@ function selectMove(event) {
 
     cells.forEach(e => {
         e.textContent = '';
-        
+        e.classList.remove('disabled-div');
     });
      
     let test = cells[2];
