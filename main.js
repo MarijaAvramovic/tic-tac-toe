@@ -1,6 +1,23 @@
 const btnStart = document.querySelector("#start");
 const divWinner = document.querySelector(".winner");
+const btnRestart = document.querySelector('.reset');
+const cells = document.querySelectorAll('.item');
 
+
+cells.forEach(e => {
+    e.addEventListener('click',  () => {
+         selectMove(event)
+    });
+})
+
+
+
+btnRestart.addEventListener('click', restartGame);
+
+
+
+
+//------------------------------TEST--------------------------
 
 const o = gameboard();
 console.log(o.cells);
@@ -18,6 +35,59 @@ const winner = my.winnerSing;
   console.log(winner);
 
   announceWinner(winner);
+
+
+//   restartGame();
+
+//     const k = gameboard();
+//     const l = k.moves;
+//     console.log(l);
+  
+//------------------------------------------------------------
+
+function selectMove(event) {
+
+    const clickedCell = event.target;
+
+    let cellValue = clickedCell.textContent;
+
+    const cellId = clickedCell.getAttribute('data-index');
+    console.log(cellId);
+    console.log(cellValue);
+     console.log(clickedCell);
+
+     
+     clickedCell.classList.add('disabled-div');
+        
+        
+     
+}
+
+  function restartGame() {
+
+    
+
+    divWinner.textContent = 'Game on';
+
+    const table = gameboard();
+
+     
+
+    cells.forEach(e => {
+        e.textContent = '';
+        
+    });
+     
+    let test = cells[2];
+    
+    table.moves = [];
+     
+    console.log('opp');
+    console.log(table.moves);
+    console.log(test.textContent);
+
+
+  }
 
 
 
@@ -56,7 +126,7 @@ function checkWinner(arr) {
 }
 
 function gameboard() {
-    const cells = document.querySelectorAll('.item');
+    
 
     let moves = [];
     cells.forEach(element => {
@@ -69,4 +139,5 @@ function gameboard() {
     return {cells, moves }
 }
 
-
+ 
+ 
