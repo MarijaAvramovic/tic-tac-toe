@@ -3,6 +3,7 @@ const divWinner = document.querySelector(".winner");
 const btnRestart = document.querySelector('.reset');
 const cells = document.querySelectorAll('.item');
  const msgTurn = document.createElement('h4');
+ 
 
  const inputX = document.querySelector('#X');
 
@@ -15,6 +16,11 @@ btnRestart.addEventListener('click', restartGame);
 
 btnStart.addEventListener('click', addPlayers);
 btnStart.addEventListener('click', addMsg);
+
+btnStart.addEventListener('click', () => {
+    cells.forEach(e => {
+    e.classList.remove('disabled-div') });
+});
  
 
  
@@ -23,6 +29,9 @@ cells.forEach(e => {
          selectMove(event)
     }); });
 
+   
+     cells.forEach(e => {
+    e.classList.add('disabled-div') });
  
 
 // function() {
@@ -52,41 +61,26 @@ console.log(o);
 
   console.log(checkWinner(o.moves));
 const my = checkWinner(o.moves)
-const winner = my.winnerSign;
-
+const winner = my.myArr[0];
+const cx = my.myArr;
   console.log(winner);
+  console.log(my);//obj
+  console.log(cx);//arr
  
 
- 
-//   restartGame();
-
-//     const k = gameboard();
-//     const l = k.moves;
-//     console.log(l);
-  
-//------------------------------------------------------------
+// ------------------------------------------------------------
  
 
  
 
 
 function selectMove(event) {
-    console.log(player);
-      
-     
+    
     const clickedCell = event.target;
-   
-   
     clickedCell.textContent =  player;
     changePlayer();
     addMsg();
    
-
-
-
-    
-    
-    
 
     let tableRound = gameboard(); 
    
@@ -96,18 +90,35 @@ function selectMove(event) {
 
 
      console.log(test);
-     console.log(test.winnerSign);
-     let a = test.winnerArr;
+     console.log(test.myArr[0]);
+     let arrau = test.myArr;
+     console.log(arrau);
+      
 
+//     if(a[0][0] != ""){
+// announceWinner(test.winnerSign);    
 
-    if(a[0][0] != ""){
-announceWinner(test.winnerSign);    
+//     }else if (b == ""){
+//       announceNoWinner();
 
-    }
+//     }
+
+if(arrau.length !== 0){
+
+announceWinner(test.myArr[0][0]);
+
+    }else if (arrau.length === 0) {
+
+        let currentStatus = allElementsNotEmpty(cellsPerRound);
+
+        if(currentStatus) {
+console.log("dddd");
+announceNoWinner();
+        }
 
         
-    
-    
+    }
+
     let cellValue = clickedCell.textContent;
     const cellId = clickedCell.getAttribute('data-index');
 
@@ -129,6 +140,10 @@ announceWinner(test.winnerSign);
      
 }
 
+function allElementsNotEmpty(arr) {
+  return arr.every(element => element !== "");
+}
+
 function stopGame() {
      cells.forEach(e => {
          
@@ -139,7 +154,7 @@ function stopGame() {
 
     
     gameOn = false;
-    divWinner.textContent = 'Enter names and start the game';
+    divWinner.textContent = 'Enter names and start my game';
 
      inputX.value = '';
      inputO.value = '';
@@ -166,11 +181,22 @@ function stopGame() {
 
 
 
+  function announceNoWinner() {
+    divWinner.textContent = '';
+    const msgWinner = document.createElement('h4');
+
+    msgWinner.textContent = 'No Winner is. Restart game.';
+
+    divWinner.appendChild(msgWinner);
+
+    stopGame();
+
+}
 function announceWinner(sing) {
     divWinner.textContent = '';
     const msgWinner = document.createElement('h4');
 
-    msgWinner.textContent = 'Winner is ' + sing;
+    msgWinner.textContent = 'Winner is ' + sing + ". Restart game.";
 
     divWinner.appendChild(msgWinner);
 
@@ -204,7 +230,7 @@ function checkWinner(arr) {
     [arr[2], arr[5], arr[8]]
      
 ];
-    
+ 
     
    const winnerArr = combos.filter(function(element) {
          const firstElement = element[0];
@@ -217,11 +243,32 @@ function checkWinner(arr) {
    });
  
 
+   let myArr = winnerArr.filter(innerArray => innerArray.includes('X') || innerArray.includes('O')); 
+
+
+ 
+//    const winnerSign = myArr[0][0];
    
-   const winnerSign = winnerArr[0][0];
         
-        return {winnerArr, winnerSign}
+        return {myArr}
 }
+
+function checkCombo(arrayOfArrays) {
+
+const filteredArrays = arrayOfArrays.filter(innerArray => {
+  // Check if all elements in the innerArray are the same
+  const allSame = innerArray.every(element => element === innerArray[0]);
+
+  // Check if the innerArray contains 'x' or 'o'
+  const containsXorO = innerArray.includes('x') || innerArray.includes('o');
+
+  // Return true if both conditions are met
+  return allSame && containsXorO;
+});
+
+console.log(checkCombo());
+}
+
 
 function gameboard() {
    let currentCells = document.querySelectorAll('.item');

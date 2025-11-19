@@ -14,10 +14,10 @@ on click fill empty cell
 colect cells check value and if 3 in row add point for winner 
 
 next:
-create obj for input sing and name 
+create obj for input sing and name / done
 game flow update msg for turn 
-swich turn
-stop game when winner is found
+swich turn / done
+stop game when winner is found / done
 announce no winner if draw
 
 
