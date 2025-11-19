@@ -6,10 +6,9 @@ const cells = document.querySelectorAll('.item');
  
 
  const inputX = document.querySelector('#X');
+ const inputO = document.querySelector('#O');
 
-    const inputO = document.querySelector('#O');
-
-    let player = 'X';
+let player = 'X';
      
 
 btnRestart.addEventListener('click', restartGame);
@@ -30,22 +29,8 @@ cells.forEach(e => {
     }); });
 
    
-     cells.forEach(e => {
+ cells.forEach(e => {
     e.classList.add('disabled-div') });
- 
-
-// function() {
-//     const player1 = createPlayer(inputX);
-//      const player2 = createPlayer(inputO);
-//      if (player == player1.sign ) {
-//         player1.addMsg();
-//      }else if(player == player2.sign){
-//                 player2.addMsg();}
-//     console.log(player1.addMsg);
-
-//   })
-
-
 
 
 //------------------------------TEST--------------------------
@@ -69,9 +54,6 @@ const cx = my.myArr;
  
 
 // ------------------------------------------------------------
- 
-
- 
 
 
 function selectMove(event) {
@@ -91,23 +73,15 @@ function selectMove(event) {
 
      console.log(test);
      console.log(test.myArr[0]);
-     let arrau = test.myArr;
-     console.log(arrau);
+     let winningCombo = test.myArr;
+     console.log(winningCombo);
       
 
-//     if(a[0][0] != ""){
-// announceWinner(test.winnerSign);    
+if(winningCombo.length !== 0){
 
-//     }else if (b == ""){
-//       announceNoWinner();
+announceWinner(test.myArr[0][0], addPlayers().nameX, addPlayers().nameO);
 
-//     }
-
-if(arrau.length !== 0){
-
-announceWinner(test.myArr[0][0]);
-
-    }else if (arrau.length === 0) {
+    }else if (winningCombo.length === 0) {
 
         let currentStatus = allElementsNotEmpty(cellsPerRound);
 
@@ -151,9 +125,7 @@ function stopGame() {
     });
 }
   function restartGame() {
-
-    
-    gameOn = false;
+ 
     divWinner.textContent = 'Enter names and start my game';
 
      inputX.value = '';
@@ -165,10 +137,10 @@ function stopGame() {
 
     cells.forEach(e => {
         e.textContent = '';
-        e.classList.remove('disabled-div');
+        // e.classList.remove('disabled-div');
     });
      
-    let test = cells[2];
+   
     
     table.moves = [];
      
@@ -192,11 +164,13 @@ function stopGame() {
     stopGame();
 
 }
-function announceWinner(sing) {
+function announceWinner(sing, nameX, nameO) {
     divWinner.textContent = '';
     const msgWinner = document.createElement('h4');
 
-    msgWinner.textContent = 'Winner is ' + sing + ". Restart game.";
+let winnerName = sing=="X" ? nameX : nameO ;
+
+    msgWinner.textContent = 'Winner is ' + sing + "!//Good job " + winnerName + "!// Restart game now. // ";
 
     divWinner.appendChild(msgWinner);
 
@@ -246,8 +220,7 @@ function checkWinner(arr) {
    let myArr = winnerArr.filter(innerArray => innerArray.includes('X') || innerArray.includes('O')); 
 
 
- 
-//    const winnerSign = myArr[0][0];
+
    
         
         return {myArr}
@@ -304,26 +277,26 @@ return { nameO, nameX}
 
 }
 
-function announceTurn(sign){
-    let currentPlayer = sign;
+// function announceTurn(sign){
+//     let currentPlayer = sign;
 
-    if(currentPlayer == 'X'){
+//     if(currentPlayer == 'X'){
 
-    divWinner.textContent = '';
-    const msgWinner = document.createElement('h4');
+//     divWinner.textContent = '';
+//     const msgWinner = document.createElement('h4');
 
-    msgWinner.textContent = 'Now is ' + addPlayers().nameX + ' turn';
+//     msgWinner.textContent = 'Now is ' + addPlayers().nameX + ' turn';
 
-    divWinner.appendChild(msgWinner);
-    }else if (currentPlayer == 'O'){
-        divWinner.textContent = '';
-    const msgWinner = document.createElement('h4');
+//     divWinner.appendChild(msgWinner);
+//     }else if (currentPlayer == 'O'){
+//         divWinner.textContent = '';
+//     const msgWinner = document.createElement('h4');
 
-    msgWinner.textContent = 'Now is ' + addPlayers().nameO + ' turn';
+//     msgWinner.textContent = 'Now is ' + addPlayers().nameO + ' turn';
 
-    divWinner.appendChild(msgWinner);
-    }
-}
+//     divWinner.appendChild(msgWinner);
+//     }
+// }
 
 function createPlayer(name) {
     return {
@@ -331,9 +304,7 @@ function createPlayer(name) {
         sign: name.id,
     }
 }
-// let yu = createPlayer(inputX);
-
-//  console.log(yu.addMsg());
+ 
 
  function addMsg () {
              
