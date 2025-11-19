@@ -51,12 +51,21 @@ const winner = my.winnerSing;
 
 function selectMove(event) {
       
-     let cellsPerRound = gameboard().moves; 
-     checkWinner(cellsPerRound);
-
      
+
+
     const clickedCell = event.target;
     clickedCell.textContent = 'X';
+
+
+    let cellsPerRound = gameboard(); 
+      
+     console.log(cellsPerRound.moves);
+
+     let test = checkWinner(cellsPerRound.moves);
+     console.log(test);
+
+     announceWinner(test.winnerSingsing);
     let cellValue = clickedCell.textContent;
 
     const cellId = clickedCell.getAttribute('data-index');
@@ -73,7 +82,7 @@ function selectMove(event) {
 
     console.log(cellsPerRound);
 
-    return ( cellsPerRound)
+    
      
 }
 
@@ -81,7 +90,7 @@ function selectMove(event) {
 
     
 
-    divWinner.textContent = 'Game on';
+    divWinner.textContent = 'Enter names';
 
     const table = gameboard();
 
