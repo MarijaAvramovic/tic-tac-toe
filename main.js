@@ -3,7 +3,17 @@ const divWinner = document.querySelector(".winner");
 const btnRestart = document.querySelector('.reset');
 const cells = document.querySelectorAll('.item');
 
+ const inputX = document.querySelector('#x');
 
+    const inputO = document.querySelector('#o');
+
+    let player = 'X';
+      
+
+
+
+
+ 
 cells.forEach(e => {
     e.addEventListener('click',  () => {
          selectMove(event)
@@ -16,15 +26,17 @@ cells.forEach(e => {
 
 
 
+
+
 btnRestart.addEventListener('click', restartGame);
 
-
+btnStart.addEventListener('click', addPlayers)
 
 
 //------------------------------TEST--------------------------
 
 const o = gameboard();
-console.log(o.cells);
+ 
 console.log(o.moves);
 console.log(o);
 
@@ -34,13 +46,12 @@ console.log(o);
 
   console.log(checkWinner(o.moves));
 const my = checkWinner(o.moves)
-const winner = my.winnerSing;
+const winner = my.winnerSign;
 
   console.log(winner);
+ 
 
-  announceWinner(winner);
-
-
+ 
 //   restartGame();
 
 //     const k = gameboard();
@@ -48,27 +59,48 @@ const winner = my.winnerSing;
 //     console.log(l);
   
 //------------------------------------------------------------
+ 
+
+ function changePlayer() {
+        player = (player == 'X') ? "O" : "X";
+    }
+
 
 function selectMove(event) {
       
      
-
-
     const clickedCell = event.target;
-    clickedCell.textContent = 'X';
+   
+  
+    clickedCell.textContent =  player;
+    changePlayer();
 
 
-    let cellsPerRound = gameboard(); 
-      
-     console.log(cellsPerRound.moves);
 
-     let test = checkWinner(cellsPerRound.moves);
+    
+    
+    
+
+    let tableRound = gameboard(); 
+   
+    let cellsPerRound = tableRound.moves;
+ 
+     let test = checkWinner(cellsPerRound);
+
+
      console.log(test);
+     console.log(test.winnerSign);
+     let a = test.winnerArr;
 
-     announceWinner(test.winnerSingsing);
+    if (Array.isArray(a) ) {
+ announceWinner(test.winnerSign);
+          
+    }
+    
     let cellValue = clickedCell.textContent;
-
     const cellId = clickedCell.getAttribute('data-index');
+
+    
     console.log(cellId);
     console.log(cellValue);
      console.log(clickedCell);
@@ -91,6 +123,9 @@ function selectMove(event) {
     
 
     divWinner.textContent = 'Enter names';
+
+     inputX.value = '';
+     inputO.value = '';
 
     const table = gameboard();
 
@@ -124,32 +159,49 @@ function announceWinner(sing) {
 
 }
 
+function announceNames(nameX, nameO) {
+    divWinner.textContent = '';
+    const msgWinner = document.createElement('h4');
+
+    msgWinner.textContent = 'X is ' + nameX + " and O is " + nameO;
+
+    divWinner.appendChild(msgWinner);
+
+}
+
 
 
 function checkWinner(arr) {
     let combos = [
     [arr[0], arr[3], arr[6]],
-    [arr[1], arr[4], arr[7]],
-    [arr[2], arr[5], arr[8]],
     [arr[0], arr[4], arr[6]],
     [arr[0], arr[1], arr[2]],
+    [arr[1], arr[4], arr[7]],
+    [arr[2], arr[5], arr[8]],
+    [arr[2], arr[4], arr[6]],
     [arr[3], arr[4], arr[5]],
     [arr[6], arr[7], arr[8]]
 ];
- 
+    
+    
    const winnerArr = combos.filter(function(element) {
          const firstElement = element[0];
+         
 
-        return element.every(e => e === firstElement);
+          
+            return element.every(e => e === firstElement);
+         
+         
    });
 
-   const winnerSing = winnerArr[0][1];
+   
+   const winnerSign = winnerArr[0][0];
         
-        return {winnerArr, winnerSing}
+        return {winnerArr, winnerSign}
 }
 
 function gameboard() {
-    
+   let currentCells = document.querySelectorAll('.item');
 
     let moves = [];
     cells.forEach(element => {
@@ -159,8 +211,24 @@ function gameboard() {
 
      
     
-    return {cells, moves }
+    return {currentCells, moves }
 }
 
  
- 
+ function addPlayers() {
+   
+
+    const nameX = inputX.value;
+    const nameO = inputO.value;
+
+    if(nameO != '' && nameO != 0){
+          announceNames(nameX, nameO)
+    }
+    else {
+        console.log("enter names");
+        
+    }
+
+}
+
+  
